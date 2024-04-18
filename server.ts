@@ -26,10 +26,17 @@ const app: Express = express();
 app.use(express.json({ limit: "10mb" }));
 
 app.use(express.urlencoded({ extended: true }));
-const whitelist = ["https://invoiceappfrontend.onrender.com"];
 
-const corsOptions = {
-  origin: (origin, callback) => {
+const whitelist: string[] = [
+  "https://invoiceappfrontend.onrender.com//",
+  "https://invoiceapp-46lb.onrender.com/",
+];
+
+const corsOptions: cors.CorsOptions = {
+  origin: (
+    origin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void
+  ) => {
     if (!origin || whitelist.includes(origin)) {
       callback(null, true);
     } else {
@@ -38,6 +45,7 @@ const corsOptions = {
   },
   credentials: true,
 };
+
 app.use(cors(corsOptions));
 
 app.use(bodyParser.json());
