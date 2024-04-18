@@ -27,7 +27,15 @@ app.use(express.json({ limit: "10mb" }));
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://alex931d.github.io/",
+      "https://alex931d.github.io/invoiceApp/",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(
   helmet.contentSecurityPolicy({
