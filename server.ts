@@ -26,24 +26,20 @@ const app: Express = express();
 app.use(express.json({ limit: "10mb" }));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "https://invoiceappfrontend.onrender.com",
+    credentials: true,
+  })
+);
 
-const whitelist: string[] = ["https://invoiceappfrontend.onrender.com/"];
-
-const corsOptions: cors.CorsOptions = {
-  origin: (
-    origin: string | undefined,
-    callback: (err: Error | null, allow?: boolean) => void
-  ) => {
-    if (!origin || whitelist.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(
+  helmet({
+    referrerPolicy: {
+      policy: "strict-origin-when-cross-origin",
+    },
+  })
+);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
