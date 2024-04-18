@@ -35,13 +35,43 @@ app.use(
 );
 
 app.use(
-  helmet({
-    referrerPolicy: {
-      policy: "strict-origin-when-cross-origin",
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:4173",
+      ],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:4173",
+      ],
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://fonts.googleapis.com",
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:4173",
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://localhost:4173",
+        "blob:",
+      ],
     },
   })
 );
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
