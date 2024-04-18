@@ -2,7 +2,7 @@
   "name": "invoice",
   "version": "1.0.0",
   "description": "invoice app",
-  "proxy": "http://localhost:5173",
+  "proxy": "https://invoiceappfrontend.onrender.com/",
   "main": "server.js",
   "scripts": {
     "start": "ts-node server.ts",
