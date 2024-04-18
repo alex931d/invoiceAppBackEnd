@@ -25,48 +25,12 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json({ limit: "10mb" }));
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:4173",
-    ],
+    origin: "https://linksharingappfrontend.onrender.com",
     credentials: true,
 }));
-app.use((0, helmet_1.default)());
-app.use(helmet_1.default.contentSecurityPolicy({
-    directives: {
-        defaultSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            "'unsafe-eval'",
-            "http://localhost:5173",
-            "http://localhost:3000",
-            "http://localhost:4173",
-        ],
-        scriptSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            "'unsafe-eval'",
-            "http://localhost:5173",
-            "http://localhost:3000",
-            "http://localhost:4173",
-        ],
-        styleSrc: [
-            "'self'",
-            "'unsafe-inline'",
-            "https://fonts.googleapis.com",
-            "http://localhost:5173",
-            "http://localhost:3000",
-            "http://localhost:4173",
-        ],
-        imgSrc: [
-            "'self'",
-            "data:",
-            "http://localhost:5173",
-            "http://localhost:3000",
-            "http://localhost:4173",
-            "blob:",
-        ],
+app.use((0, helmet_1.default)({
+    referrerPolicy: {
+        policy: "strict-origin-when-cross-origin",
     },
 }));
 app.use(body_parser_1.default.json());
@@ -74,7 +38,6 @@ app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.urlencoded({ limit: "10mb", extended: true }));
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.static(path_1.default.join(__dirname)));
-app.use(express_1.default.static(path_1.default.join(__dirname, "..", "frontend", "dist")));
 if (MongoDBURL) {
     mongoose_1.default
         .connect(MongoDBURL)
@@ -89,13 +52,6 @@ if (MongoDBURL) {
 else {
     console.log(`error connecting to mongoDB`);
 }
-app.use((req, res, next) => {
-    res.set("Cross-Origin-Resource-Policy", "cross-origin");
-    next();
-});
-app.get("*", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "..", "frontend", "dist", "index.html"));
-});
 app.get("/protected", auth_1.default, (req, res) => {
     res.json({ success: true, message: "You have access to protected data" });
 });

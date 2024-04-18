@@ -29,24 +29,15 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "http://localhost:4173",
-    ],
+    origin: "https://linksharingappfrontend.onrender.com",
     credentials: true,
   })
 );
-app.use(helmet());
 
-app.use(helmet());
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "blob:"],
+  helmet({
+    referrerPolicy: {
+      policy: "strict-origin-when-cross-origin",
     },
   })
 );
@@ -56,7 +47,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, "frontend")));
+app.use(express.static(path.join(__dirname)));
 if (MongoDBURL) {
   mongoose
     .connect(MongoDBURL)
@@ -71,9 +62,6 @@ if (MongoDBURL) {
   console.log(`error connecting to mongoDB`);
 }
 
-app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
-});
 app.get("/protected", verifyToken, (req, res) => {
   res.json({ success: true, message: "You have access to protected data" });
 });
