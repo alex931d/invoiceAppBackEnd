@@ -32,6 +32,7 @@ app.use(
   cors({
     origin: [
       "https://alex931d.github.io/",
+      "https://invoiceappfrontend.onrender.com",
       "https://invoiceapp-46lb.onrender.com",
     ],
     credentials: true,
@@ -47,7 +48,7 @@ app.use(
         "'unsafe-eval'",
         "https://alex931d.github.io/",
         "https://invoiceapp-46lb.onrender.com",
-        "http://localhost:4173",
+        "https://invoiceappfrontend.onrender.com",
       ],
       scriptSrc: [
         "'self'",
@@ -55,7 +56,7 @@ app.use(
         "'unsafe-eval'",
         "https://alex931d.github.io/",
         "https://invoiceapp-46lb.onrender.com",
-        "http://localhost:4173",
+        "https://invoiceappfrontend.onrender.com",
       ],
       styleSrc: [
         "'self'",
@@ -63,14 +64,14 @@ app.use(
         "https://fonts.googleapis.com",
         "https://alex931d.github.io/",
         "https://invoiceapp-46lb.onrender.com",
-        "http://localhost:4173",
+        "https://invoiceappfrontend.onrender.com",
       ],
       imgSrc: [
         "'self'",
         "data:",
         "https://alex931d.github.io/",
         "https://invoiceapp-46lb.onrender.com",
-        "http://localhost:4173",
+        "https://invoiceappfrontend.onrender.com",
         "blob:",
       ],
     },
