@@ -29,14 +29,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: [
-      "https://alex931d.github.io/",
-      "https://alex931d.github.io/invoiceApp/",
-    ],
+    origin: "https://*.github.io",
     credentials: true,
   })
 );
-
+app.use(
+  helmet({
+    referrerPolicy: {
+      policy: "strict-origin-when-cross-origin",
+    },
+  })
+);
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
