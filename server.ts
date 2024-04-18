@@ -39,41 +39,14 @@ app.use(
 );
 app.use(helmet());
 
+app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      defaultSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:4173",
-      ],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:4173",
-      ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://fonts.googleapis.com",
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:4173",
-      ],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "http://localhost:4173",
-        "blob:",
-      ],
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "blob:"],
     },
   })
 );
@@ -98,10 +71,7 @@ if (MongoDBURL) {
 } else {
   console.log(`error connecting to mongoDB`);
 }
-app.use((req, res, next) => {
-  res.set("Cross-Origin-Resource-Policy", "cross-origin");
-  next();
-});
+
 app.get("*", (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
