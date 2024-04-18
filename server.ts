@@ -55,7 +55,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname)));
 
 app.use(express.static(path.join(__dirname, "frontend")));
 if (MongoDBURL) {
