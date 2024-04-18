@@ -30,50 +30,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(
   cors({
-    origin: [
-      "https://alex931d.github.io/",
-      "https://invoiceappfrontend.onrender.com",
-      "https://invoiceapp-46lb.onrender.com",
-    ],
+    origin: "https://invoiceappfrontend.onrender.com",
     credentials: true,
   })
 );
-app.use(helmet());
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      defaultSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "https://alex931d.github.io/",
-        "https://invoiceapp-46lb.onrender.com",
-        "https://invoiceappfrontend.onrender.com",
-      ],
-      scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "https://alex931d.github.io/",
-        "https://invoiceapp-46lb.onrender.com",
-        "https://invoiceappfrontend.onrender.com",
-      ],
-      styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://fonts.googleapis.com",
-        "https://alex931d.github.io/",
-        "https://invoiceapp-46lb.onrender.com",
-        "https://invoiceappfrontend.onrender.com",
-      ],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "https://alex931d.github.io/",
-        "https://invoiceapp-46lb.onrender.com",
-        "https://invoiceappfrontend.onrender.com",
-        "blob:",
-      ],
+  helmet({
+    referrerPolicy: {
+      policy: "strict-origin-when-cross-origin",
     },
   })
 );
