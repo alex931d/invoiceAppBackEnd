@@ -26,7 +26,13 @@ import {
   IProject,
   ImageModel,
 } from "../models/schema";
-
+import cors from "cors";
+accountAPI.use(
+  cors({
+    origin: "https://invoiceappfrontend.onrender.com",
+    credentials: true,
+  })
+);
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 dotenv.config();
