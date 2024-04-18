@@ -22,7 +22,13 @@ import {
   IClient,
   IProject,
 } from "../models/schema";
-
+import cors from "cors";
+invoiceAPI.use(
+  cors({
+    origin: "https://invoiceappfrontend.onrender.com",
+    credentials: true,
+  })
+);
 dotenv.config();
 const secretKey: string | undefined = process.env.SECRET_KEY;
 invoiceAPI.put("/updateInvoice", verifyToken, async (req, res) => {
