@@ -33,13 +33,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(
-  helmet({
-    referrerPolicy: {
-      policy: "strict-origin-when-cross-origin",
-    },
-  })
-);
+
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
@@ -47,7 +41,7 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "'unsafe-eval'",
-        "http://localhost:5173",
+        "https://*.github.io",
         "http://localhost:3000",
         "http://localhost:4173",
       ],
@@ -55,7 +49,7 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "'unsafe-eval'",
-        "http://localhost:5173",
+        "https://*.github.io",
         "http://localhost:3000",
         "http://localhost:4173",
       ],
@@ -63,14 +57,14 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "https://fonts.googleapis.com",
-        "http://localhost:5173",
+        "https://*.github.io",
         "http://localhost:3000",
         "http://localhost:4173",
       ],
       imgSrc: [
         "'self'",
         "data:",
-        "http://localhost:5173",
+        "https://*.github.io",
         "http://localhost:3000",
         "http://localhost:4173",
         "blob:",
