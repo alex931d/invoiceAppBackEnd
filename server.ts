@@ -64,7 +64,7 @@ if (MongoDBURL) {
 app.get("/protected", verifyToken, (req, res) => {
   res.json({ success: true, message: "You have access to protected data" });
 });
-app.post("/images/:filename", async (req: Request, res: Response) => {
+app.get("/images/:filename", async (req: Request, res: Response) => {
   try {
     const { filename } = req.params;
     const image = await ImageModel.findOne({ filename });
