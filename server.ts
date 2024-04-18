@@ -26,20 +26,20 @@ const app: Express = express();
 app.use(express.json({ limit: "10mb" }));
 
 app.use(express.urlencoded({ extended: true }));
+const whitelist = ["https://invoiceappfrontend.onrender.com"];
 
-app.use(
-  cors({
-    origin: "https://invoiceappfrontend.onrender.com",
-    credentials: true,
-  })
-);
-app.use(
-  helmet({
-    referrerPolicy: {
-      policy: "strict-origin-when-cross-origin",
-    },
-  })
-);
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ limit: "10mb", extended: true }));
