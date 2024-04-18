@@ -164,10 +164,9 @@ app.use((req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();
 });
-const PORT: string | number = 3000;
 app.use("/accountAPI", accountAPI);
 app.use("/invoiceAPI", invoiceAPI);
-app.listen(PORT, () => {
-  console.log(`Server is running on PORT: ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on PORT: ${process.env.PORT}`);
 });
 export { gridFSBucket };
