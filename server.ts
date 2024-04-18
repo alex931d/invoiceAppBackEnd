@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "https://*.github.io",
+    origin: "https://alex931d.github.io/",
     credentials: true,
   })
 );
@@ -41,7 +41,7 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "'unsafe-eval'",
-        "https://*.github.io",
+        "https://alex931d.github.io/",
         "http://localhost:3000",
         "http://localhost:4173",
       ],
@@ -49,7 +49,7 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "'unsafe-eval'",
-        "https://*.github.io",
+        "https://alex931d.github.io/",
         "http://localhost:3000",
         "http://localhost:4173",
       ],
@@ -57,14 +57,14 @@ app.use(
         "'self'",
         "'unsafe-inline'",
         "https://fonts.googleapis.com",
-        "https://*.github.io",
+        "https://alex931d.github.io/",
         "http://localhost:3000",
         "http://localhost:4173",
       ],
       imgSrc: [
         "'self'",
         "data:",
-        "https://*.github.io",
+        "https://alex931d.github.io/",
         "http://localhost:3000",
         "http://localhost:4173",
         "blob:",
