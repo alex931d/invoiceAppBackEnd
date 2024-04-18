@@ -84,7 +84,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname)));
 
-app.use(express.static(path.join(__dirname, "..", "frontend", "dist")));
+app.use(express.static(path.join(__dirname, "frontend")));
 if (MongoDBURL) {
   mongoose
     .connect(MongoDBURL)
@@ -103,7 +103,7 @@ app.use((req, res, next) => {
   next();
 });
 app.get("*", (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, "..", "frontend", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
 app.get("/protected", verifyToken, (req, res) => {
   res.json({ success: true, message: "You have access to protected data" });
