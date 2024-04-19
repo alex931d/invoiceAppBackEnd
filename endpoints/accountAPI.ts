@@ -298,24 +298,52 @@ accountAPI.post("/signup", async (req, res) => {
       owner: newUser._id,
     });
     await project.save();
+    const projects = await Project.find({ _id: { $in: newUser.projects } })
+      .populate({
+        path: "invoices",
+        populate: { path: "client" },
+      })
+      .exec();
 
+    if (!projects) {
+      return res.status(500).json({ error: "no projects found" });
+    }
     newUser.projects.push(project._id);
     await newUser.save();
     const token = jwt.sign(
-      { user: newUser, projects: newUser.projects },
+      {
+        user: {
+          _id: newUser._id,
+          email: newUser.email,
+          role: newUser.role,
+          avatar: newUser.avatar,
+          projects: projects,
+        },
+        projects: projects,
+      },
       secretKey,
       {
         expiresIn: "2h",
       }
     );
 
-    res.clearCookie("jwt").cookie("jwt", token).status(200).json({
-      message: "user successfully signed up",
-      user: newUser,
-      projects: newUser.projects,
-      token: token,
-      expiresIn: "24h",
-    });
+    res
+      .clearCookie("jwt")
+      .cookie("jwt", token)
+      .status(200)
+      .json({
+        message: "user successfully logged in",
+        user: {
+          _id: newUser._id,
+          email: newUser.email,
+          role: newUser.role,
+          avatar: newUser.avatar,
+          projects: projects,
+        },
+        projects: projects,
+        token: token,
+        expiresIn: "24h",
+      });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "An error occurred" });
