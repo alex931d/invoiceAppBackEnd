@@ -32,7 +32,12 @@ app.use(
     credentials: true,
   })
 );
+app.use(helmet());
 
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+  next();
+});
 app.use(
   helmet({
     referrerPolicy: {
