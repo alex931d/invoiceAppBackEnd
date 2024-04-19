@@ -33,7 +33,9 @@ app.use(
   })
 );
 app.use(helmet());
+app.use(helmet.crossOriginEmbedderPolicy({ policy: "require-corp" }));
 
+app.use(helmet.crossOriginOpenerPolicy({ policy: "same-origin" }));
 app.use((req, res, next) => {
   res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
   next();
