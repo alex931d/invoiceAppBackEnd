@@ -83,6 +83,7 @@ app.get("/images/:filename", async (req: Request, res: Response) => {
     if (!files[0] || files.length === 0) {
       return res.status(404).json({ message: "No files available" });
     }
+    res.header("Access-Control-Allow-Origin", "*");
     res.set("Content-Type", image.contentType);
     gridFSBucket.openDownloadStreamByName(filename).pipe(res);
   } catch (error: any) {
